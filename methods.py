@@ -42,7 +42,7 @@ def make_file_if_necessary(filename: str):
                 return json.load(f)
             except:
                 print("The JSON file was formatted incorrectly. Please ensure it's correct or delete it and let it be remade.")
-                return DEFAULT_JSON
+                return None
 
 
 def setup(kill_if_format_err: bool):
@@ -63,10 +63,13 @@ def setup(kill_if_format_err: bool):
     # OR if the file isn't to be killed
     # send the custom options or the default options,
     # whichever "options" equals
-    if options != DEFAULT_JSON or not kill_if_format_err:
+    if options != DEFAULT_JSON or options == DEFAULT_JSON:
         return options
-    else:
+    elif kill_if_format_err and options is None:
+        print("Files are formatted incorrectly, exiting")
         sys.exit()
+    else:
+        return DEFAULT_JSON
 
 
 def get_option_items(filepath: str):
@@ -159,7 +162,7 @@ def update_file(filename: str, contents: dict):
     """
     # ...well this function was a lot shorter than I thought
     with open(filename, "w") as f:
-        f.write(json.dumps(contents))
+        f.write(json.dumps(contents, indent=4))
 
 
 def update_server(server_ip: str, server_port: str | int, token: str):
@@ -173,5 +176,5 @@ def update_server(server_ip: str, server_port: str | int, token: str):
         }
     }
 
-    response = requests.put(f"{server_ip}:{server_port}", REQUEST)
+    response = requests.put(f"{server_ip}:{server_port}", json.dumps(REQUEST))
     return response

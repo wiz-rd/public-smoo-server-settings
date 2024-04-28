@@ -4,11 +4,7 @@
         "Players": [
             "00000001-00000-0000-0000-000000000000"
         ],
-        "IpAddresses": [
-
-        ],
-        "Stages": [
-
-        ]
+        "IpAddresses": [],
+        "Stages": []
     }
 }

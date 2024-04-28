@@ -9,7 +9,7 @@ custom_options = setup(True)
 urls = {}
 
 for file in custom_options["use"]:
-    urls[file.split(".")[0]] = file
+    urls[file] = custom_options["repo_url"] + file
 
 # # using a dictionary so that it can be a bit more dynamic
 # urls = {
@@ -27,6 +27,7 @@ for up in updates_to_be_made:
     print(f"Changes found in {up}, updating now.")
     update_file(up, updates_to_be_made[up])
 
-print("Attempting to reload the server...")
-s_response = update_server(custom_options["host"], custom_options["port"], custom_options["token"])
-print(f"Server response: {s_response}")
+if len(updates_to_be_made) > 0:
+    print("Attempting to reload the server...")
+    s_response = update_server(custom_options["host"], custom_options["port"], custom_options["token"])
+    print(f"Server response: {s_response}")
