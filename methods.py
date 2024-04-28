@@ -1,6 +1,7 @@
 import json
 import sys
 import requests
+from urllib import request
 
 DEFAULT_JSON = {
     "//comment": 'set any of the items in "use" to false if you do not want to update them with the chosen repo.',
@@ -165,16 +166,34 @@ def update_file(filename: str, contents: dict):
         f.write(json.dumps(contents, indent=4))
 
 
-def update_server(server_ip: str, server_port: str | int, token: str):
-    REQUEST = {
-        "API_JSON_REQUEST": {
-            "Token": token,
-            "Type": "Command",
-            "Data": "loadsettings",
-            # setting this to loadsettings as the
-            # settings will be interacted with directly
-        }
-    }
+# TEMPORARILY, this code will just support banning folks who are not already banned
+# in the future, I hope for this to support all sorts of commands when interacting
+# with the server, but for now I can't think of a good way to do so.
+def update_server(server_ip: str, server_port: str | int, token: str, bans: dict):
+    """
+    Overall
+    -------
+    Communicates with the server to perform the given action.
+    The token will need ban access so it can properly ban people.
 
-    response = requests.put(f"{server_ip}:{server_port}", json.dumps(REQUEST))
-    return response
+    Returns
+    -------
+    The response from the server.
+    """
+    responses = []
+
+    for ban in bans:
+        REQUEST = {
+            "API_JSON_REQUEST": {
+                "Token": token,
+                "Type": "Command",
+                "Data": f"ban {ban} {bans[ban]}",
+                # banning the user, profile, or stage
+                # depending on the key of the dictionary
+            }
+        }
+
+        response = request.Request(f"{server_ip}:{server_port}", json.dumps(REQUEST))
+        responses.append(response.data)
+
+    return responses
