@@ -59,7 +59,7 @@ def setup(kill_if_format_err: bool):
     - EXITS the program entirely
     """
     options = make_file_if_necessary("options.json")
-    
+
     # if the options file exists
     # OR if the file isn't to be killed
     # send the custom options or the default options,
@@ -141,7 +141,7 @@ def compare_items(options: dict, repo_url: str, urls: dict):
                 items_to_change[filename_of_relevant_item] = git_item
             else:
                 continue
-    
+
     return items_to_change
 
 
