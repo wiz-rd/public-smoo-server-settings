@@ -1,5 +1,5 @@
 # public-smoo-server-settings
-A bundle of settings for the (Super Mario Odyssey Online mod's)[https://github.com/CraftyBoss/SuperMarioOdysseyOnline] (server)[https://github.com/Sanae6/SmoOnlineServer] (see below regarding server version) that can be used to share banned players and IPs and sync with static files on the web.
+A bundle of settings for the [Super Mario Odyssey Online mod's](https://github.com/CraftyBoss/SuperMarioOdysseyOnline) [server](https://github.com/Sanae6/SmoOnlineServer) (see below regarding server version) that can be used to share banned players and IPs and sync with static files on the web.
 
 # Prerequisites
 
